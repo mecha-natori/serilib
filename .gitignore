@@ -1,0 +1,10 @@
+**/.direnv/
+.cache/
+.pre-commit-config.yaml
+build/
+cmake-build-debug/
+cmake-build-minsizerel/
+cmake-build-release/
+cmake-build-relwithdebinfo/
+compile_commands.json
+result*
