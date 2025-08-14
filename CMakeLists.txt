@@ -11,6 +11,7 @@ cmake_policy(
 
 project(serilib VERSION 0.1.0)
 enable_language(C)
+include(GNUInstallDirs)
 
 # Build Options
 
@@ -61,4 +62,21 @@ add_subdirectory(src)
 target_sources(seri PRIVATE ${srcs})
 if(SERI_USE_SHARED)
     target_sources(seri_shared PRIVATE ${srcs})
+endif()
+
+# Installs
+
+install(TARGETS seri ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(
+    DIRECTORY ${CMAKE_SOURCE_DIR}/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING
+    PATTERN "*.h"
+)
+if(SERI_USE_SHARED)
+    install(
+        TARGETS seri_shared
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
 endif()
