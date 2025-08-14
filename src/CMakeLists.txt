@@ -1,10 +1,14 @@
-target_sources(
-    seri
-    PRIVATE
-        math.c
-        pid.c
-        steering_crawler.c
-        steering_mechanum.c
-        steering_omni.c
-        stick.c
+list(
+    APPEND
+    srcs
+    ${CMAKE_CURRENT_SOURCE_DIR}/math.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/pid.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/steering_crawler.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/steering_mechanum.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/steering_omni.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/stick.c
+)
+set(srcs
+    ${srcs}
+    PARENT_SCOPE
 )

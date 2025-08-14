@@ -7,20 +7,24 @@ cmake_policy(
     NEW
 )
 
+# Project Settings
+
 project(serilib VERSION 0.1.0)
 enable_language(C)
 
+# Build Options
+
 option(
-    USE_SHARED
+    SERI_USE_SHARED
     "共有ライブラリを生成する"
     OFF
 )
-set(PRIMARY_FP_TYPE
+set(SERI_PRIMARY_FP_TYPE
     "float"
     CACHE STRING "構造体内部で使用される浮動小数点数の型"
 )
 set_property(
-    CACHE PRIMARY_FP_TYPE
+    CACHE SERI_PRIMARY_FP_TYPE
     PROPERTY
         STRINGS
         "float"
@@ -28,12 +32,33 @@ set_property(
         "long double"
 )
 
-if(USE_SHARED)
-    add_library(seri SHARED)
-else()
-    add_library(seri STATIC)
+# Common Parameters
+
+set(compile_definitions SL_FP_T=${SERI_PRIMARY_FP_TYPE})
+set(compile_features c_std_11)
+set(include_dirs include)
+
+# Targets
+
+add_library(seri STATIC)
+target_compile_features(seri PUBLIC ${compile_features})
+target_include_directories(seri PUBLIC ${include_dirs})
+target_compile_definitions(seri PUBLIC ${compile_definitions})
+if(SERI_USE_SHARED)
+    add_library(seri_shared SHARED)
+    set_target_properties(
+        seri_shared
+        PROPERTIES
+            OUTPUT_NAME seri
+            SOVERSION ${PROJECT_VERSION_MAJOR}
+            VERSION ${PROJECT_VERSION}
+    )
+    target_compile_features(seri_shared PUBLIC ${compile_features})
+    target_include_directories(seri_shared PUBLIC ${include_dirs})
+    target_compile_definitions(seri_shared PUBLIC ${compile_definitions})
 endif()
-target_compile_features(seri PUBLIC c_std_11)
-target_include_directories(seri PUBLIC include)
-target_compile_definitions(seri PUBLIC SL_FP_T=${PRIMARY_FP_TYPE})
 add_subdirectory(src)
+target_sources(seri PRIVATE ${srcs})
+if(SERI_USE_SHARED)
+    target_sources(seri_shared PRIVATE ${srcs})
+endif()
