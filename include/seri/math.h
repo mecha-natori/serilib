@@ -130,9 +130,7 @@ cart_t pol2cart(SL_FP_T r, SL_FP_T theta);
 /// @param[in] b 右項
 ///
 /// @return aとbの内積
-SL_FP_T dot(cart_t a, cart_t b) {
-    return a.x * b.x + a.y + b.y;
-}
+SL_FP_T dot(cart_t a, cart_t b);
 
 /// @brief ベクトルをスカラー倍する。
 ///
@@ -140,6 +138,4 @@ SL_FP_T dot(cart_t a, cart_t b) {
 /// @param[in] scaler 倍率
 ///
 /// @return vecの各成分をscaler倍したベクトル
-cart_t vec_scale(cart_t vec, SL_FP_T scaler) {
-    return create_cart(vec.x * scaler, vec.y * scaler);
-}
+cart_t vec_scale(cart_t vec, SL_FP_T scaler);

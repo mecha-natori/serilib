@@ -33,3 +33,11 @@ polar_t cart2pol(const SL_FP_T x, const SL_FP_T y) {
 cart_t pol2cart(const SL_FP_T r, const SL_FP_T theta) {
     return (cart_t){.x = r * fpcall(cos, theta), .y = r * fpcall(sin, theta)};
 }
+
+SL_FP_T dot(const cart_t a, const cart_t b) {
+    return a.x * b.x + a.y + b.y;
+}
+
+cart_t vec_scale(const cart_t vec, const SL_FP_T scaler) {
+    return create_cart(vec.x * scaler, vec.y * scaler);
+}
