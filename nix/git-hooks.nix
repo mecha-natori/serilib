@@ -10,10 +10,14 @@
         check.enable = true;
         settings = {
           hooks = {
-            actionlint.enable = true;
+            actionlint.enable = false; # treefmt
+            clang-format.enable = false; # treefmt
+            clang-tidy.enable = true;
+            cmake-format.enable = false; # treefmt
             editorconfig-checker = {
               enable = true;
               excludes = [
+                "Doxyfile"
                 "flake.lock"
               ];
             };
@@ -25,11 +29,14 @@
                 MD026 = false;
               };
             };
+            mdformat.enable = false; # treefmt
+            nil.enable = true;
+            nixfmt-rfc-style.enable = false; # treefmt
             treefmt = {
               enable = true;
               package = config.treefmt.build.wrapper;
             };
-            yamlfmt.enable = true;
+            yamlfmt.enable = false; # treefmt
             yamllint.enable = true;
           };
           src = ../.;

@@ -1,1 +1,10 @@
-target_sources(seri PRIVATE math.c stick.c)
+target_sources(
+    seri
+    PRIVATE
+        math.c
+        pid.c
+        steering_crawler.c
+        steering_mechanum.c
+        steering_omni.c
+        stick.c
+)

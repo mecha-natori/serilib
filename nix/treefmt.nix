@@ -8,6 +8,7 @@
     {
       treefmt = {
         programs = {
+          actionlint.enable = true;
           clang-format.enable = true;
           cmake-format.enable = true;
           mdformat = {
@@ -24,6 +25,7 @@
             };
           };
           nixfmt.enable = true;
+          yamlfmt.enable = true;
         };
         settings.formatter.cmake-format.includes = [
           "**/CMakeLists.txt"

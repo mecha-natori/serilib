@@ -29,19 +29,29 @@
         ./nix/git-hooks.nix
       ];
       perSystem =
-        { config, pkgs, ... }:
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
         {
           devShells.default = pkgs.mkShell {
             packages =
-              with pkgs;
-              (
-                [
-                  cmake
-                  ninja
-                ]
-                ++ (with pkgsCross.armhf-embedded.buildPackages; [
-                  gcc
-                ])
+              config.pre-commit.settings.enabledPackages
+              ++ lib.attrValues config.treefmt.build.programs
+              ++ (
+                with pkgs;
+                (
+                  [
+                    cmake
+                    doxygen
+                    ninja
+                  ]
+                  ++ (with pkgsCross.armhf-embedded.buildPackages; [
+                    gcc
+                  ])
+                )
               );
             shellHook = ''
               ${config.pre-commit.installationScript}

@@ -7,4 +7,5 @@ cmake-build-minsizerel/
 cmake-build-release/
 cmake-build-relwithdebinfo/
 compile_commands.json
+docs/
 result*

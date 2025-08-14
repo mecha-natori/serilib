@@ -1,0 +1,9 @@
+formatter:
+  eof_newline: true
+  include_document_start: false
+  indent: 2
+  line_ending: "lf"
+  type: "basic"
+line_ending: "lf"
+
+# vim: ft=yaml

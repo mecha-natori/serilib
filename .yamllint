@@ -1,4 +1,8 @@
 extends: "default"
 rules:
+  comments: "disable"
   document-start: "disable"
+  line-length: "disable"
   truthy: "disable"
+
+# vim: ft=yaml

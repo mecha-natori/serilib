@@ -1,78 +1,160 @@
-AccessModifierOffset: -4
-AlignAfterOpenBracket: BlockIndent
-AlignConsecutiveMacros: None
-AlignConsecutiveAssignments: None
-AlignConsecutiveDeclarations: None
-AlignEscapedNewlines: DontAlign
-AlignOperands: DontAlign
-AlignTrailingComments: false
+AccessModifierOffset: 0
+AlignAfterOpenBracket: "BlockIndent"
+AlignArrayOfStructures: "None"
+AlignConsecutiveAssignments: "None"
+AlignConsecutiveBitFields: "None"
+AlignConsecutiveDeclarations: "None"
+AlignConsecutiveMacros: "None"
+AlignConsecutiveShortCaseStatements:
+  Enabled: false
+AlignEscapedNewlines: "DontAlign"
+AlignOperands: "DontAlign"
+AlignTrailingComments:
+  Kind: "Never"
 AllowAllArgumentsOnNextLine: false
-AllowAllConstructorInitializersOnNextLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: "Empty"
+AllowShortCaseExpressionOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: Empty
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLambdasOnASingleLine: All
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: "Empty"
+AllowShortIfStatementsOnASingleLine: "Never"
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
-AlwaysBreakTemplateDeclarations: Yes
+AttributeMacros: []
 BinPackArguments: false
-BinPackParameters: false
-BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Custom
-BreakBeforeTernaryOperators: true
+# BinPackLongBracedList: false  # since 21
+BinPackParameters: false # until 20
+# BinPackParameters: "OnePerLine"  # since 20.1
+BitFieldColonSpacing: "Both"
 BraceWrapping:
-  AfterControlStatement: MultiLine
+  AfterCaseLabel: false
+  AfterControlStatement: "MultiLine"
   AfterEnum: false
+  AfterExternBlock: false
+  AfterFunction: false
   AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeWhile: false
+  IndentBraces: false
   SplitEmptyFunction: false
-BreakConstructorInitializers: AfterColon
-BreakInheritanceList: AfterColon
-BreakStringLiterals: false
-ColumnLimit: 100
-CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
+  SplitEmptyRecord: false
+BracedInitializerIndentWidth: 4
+BreakAdjacentStringLiterals: false
+BreakAfterAttributes: "Always"
+BreakAfterReturnType: "Automatic"
+BreakBeforeBinaryOperators: "NonAssignment"
+BreakBeforeBraces: "Custom"
+BreakBeforeConceptDeclarations: "Always"
+BreakBeforeInlineASMColon: "OnlyMultiline"
+BreakBeforeTernaryOperators: true
+# BreakBinaryOperations: "Never"  # since 20
+BreakFunctionDefinitionParameters: false
+BreakInheritanceList: "AfterColon"
+BreakStringLiterals: true
+BreakTemplateDeclarations: "Yes"
+ColumnLimit: 80
+CommentPragmas: ""
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
-Cpp11BracedListStyle: true
 DerivePointerAlignment: false
-EmptyLineAfterAccessModifier: Never
-EmptyLineBeforeAccessModifier: Always
-FixNamespaceComments: true
-IncludeBlocks: Preserve
-IncludeIsMainRegex: "([-_](test|unittest))?$"
+DisableFormat: false
+# EnumTrailingComma: "Remove"  # since 21
+ExperimentalAutoDetectBinPacking: false
+ForEachMacros: []
+IfMacros: []
+IncludeBlocks: "Regroup"
+IncludeCategories:
+  - {Priority: 0, Regex: '".+"'}
+  - {Priority: 1, Regex: "<.+>"}
+IncludeIsMainRegex: "^$"
+IncludeIsMainSourceRegex: "^$"
+IndentCaseBlocks: false
 IndentCaseLabels: true
-IndentPPDirectives: BeforeHash
+# IndentExportBlock: true  # since 20
+IndentExternBlock: "Indent"
+IndentGotoLabels: false
+IndentPPDirectives: "BeforeHash"
 IndentWidth: 4
 IndentWrappedFunctionNames: false
+InsertBraces: true
+InsertNewlineAtEOF: true
+InsertTrailingCommas: "None"
+IntegerLiteralSeparator:
+  Binary: -1
+  Decimal: -1
+  Hex: -1
 KeepEmptyLines:
   AtEndOfFile: true
   AtStartOfBlock: false
   AtStartOfFile: false
+# KeepFormFeed: false  # since 20
+Language: "Cpp" # until 21
+# Language: "C"  # since 21.1
+LineEnding: "LF"
+MacroBlockBegin: ^NS_MAP_BEGIN|NS_TABLE_HEAD$
+MacroBlockEnd: ^NS_MAP_END|NS_TABLE_.*_END$
+Macros: []
+# MacrosSkippedByRemoveParentheses: []  # since 21
+MainIncludeChar: "AngleBracket"
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: Inner
-PointerAlignment: Right
-ReflowComments: false
-SortIncludes: CaseSensitive
-SortUsingDeclarations: true
+# OneLineFormatOffRegex: "^// format-off"  # since 21
+PPIndentWidth: 4
+PenaltyBreakAssignment: 0
+PenaltyBreakBeforeFirstCallParameter: 0
+# PenaltyBreakBeforeMemberAccess: 0  # since 20
+PenaltyBreakComment: 0
+PenaltyBreakFirstLessLess: 0
+PenaltyBreakOpenParenthesis: 0
+PenaltyBreakString: 0
+PenaltyExcessCharacter: 0
+PenaltyIndentedWhitespace: 0
+PenaltyReturnTypeOnItsOwnLine: 0
+PointerAlignment: "Right"
+QualifierAlignment: "Custom"
+QualifierOrder:
+  - "static"
+  - "inline"
+  - "const"
+  - "volatile"
+  - "restrict"
+  - "type"
+ReflowComments: true # until 21
+# ReflowComments: "Always"  # since 21.1
+# RemoveEmptyLinesInUnwrappedLines: true  # since 20
+RemoveParentheses: "ReturnStatement"
+RemoveSemicolon: true
+SeparateDefinitionBlocks: "Always"
+SkipMacroDefinitionBody: true
+SortIncludes: "CaseSensitive" # until 21
+# SortIncludes:  # since 21.1
+#   Enabled: true
+#   IgnoreCase: false
+#   IgnoreExtension: false
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
-SpaceAfterTemplateKeyword: false
+SpaceAroundPointerQualifiers: "After"
 SpaceBeforeAssignmentOperators: true
-SpaceBeforeCpp11BracedList: true
-SpaceBeforeCtorInitializerColon: false
-SpaceBeforeInheritanceColon: false
-SpaceBeforeParens: Never
-SpaceBeforeRangeBasedForLoopColon: false
-SpaceInEmptyBlock: false
-SpaceInEmptyParentheses: false
+SpaceBeforeCaseColon: false
+SpaceBeforeParens: "Never"
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: true
 SpacesBeforeTrailingComments: 1
-SpacesInAngles: Never
-SpacesInCStyleCastParentheses: false
 SpacesInContainerLiterals: false
-SpacesInParentheses: false
+SpacesInLineCommentPrefix:
+  Maximum: -1
+  Minimum: 1
+SpacesInParens: "Never"
 SpacesInSquareBrackets: false
-Standard: Latest
-UseTab: Never
+StatementAttributeLikeMacros: []
+StatementMacros: []
+TabWidth: 4
+TypeNames: []
+TypenameMacros:
+  - "SL_FP_T"
+UseTab: "Never"
+WhitespaceSensitiveMacros: []
+# vim: ft=yaml

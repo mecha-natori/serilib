@@ -3,77 +3,33 @@
 #include <math.h>
 #include <seri/math.h>
 
-bool approx(double a, double b) {
-    return fabs(a - b) < DBL_EPSILON;
+bool approx(const double a, const double b) {
+    const double eps = DBL_EPSILON * fmax(1.0, fmax(fabs(a), fabs(b)));
+    return fabs(a - b) < eps;
 }
 
-bool approxf(float a, float b) {
-    return fabsf(a - b) < FLT_EPSILON;
+bool approxf(const float a, const float b) {
+    const float eps = FLT_EPSILON * fmaxf(1.0f, fmaxf(fabsf(a), fabsf(b)));
+    return fabsf(a - b) < eps;
 }
 
-bool approxl(long double a, long double b) {
-    return fabsl(a - b) < LDBL_EPSILON;
+bool approxl(const long double a, const long double b) {
+    const long double eps = LDBL_EPSILON * fmaxl(1.0l, fmaxl(fabsl(a), fabsl(b)));
+    return fabsl(a - b) < eps;
 }
 
-polar_t cart2pol(double complex cart) {
-    polar_t p;
-    p.r = hypot(creal(cart), cimag(cart));
-    p.theta = atan2(cimag(cart), creal(cart));
-    return p;
+cart_t create_cart(const SL_FP_T x, const SL_FP_T y) {
+    return (cart_t){.x = x, .y = y};
 }
 
-polar_t cartf2pol(float complex cart) {
-    polar_t p;
-    p.r = hypot((double)crealf(cart), (double)cimagf(cart));
-    p.theta = atan2((double)cimagf(cart), (double)crealf(cart));
-    return p;
+polar_t create_polar(const SL_FP_T r, const SL_FP_T theta) {
+    return (polar_t){.r = r, .theta = theta};
 }
 
-polar_t cartl2pol(long double complex cart) {
-    polar_t p;
-    p.r = hypot((double)creall(cart), (double)cimagl(cart));
-    p.theta = atan2((double)cimagl(cart), (double)creall(cart));
-    return p;
+polar_t cart2pol(const SL_FP_T x, const SL_FP_T y) {
+    return (polar_t){.r = fpcall(hypot, x, y), .theta = fpcall(atan2, y, x)};
 }
 
-polarf_t cart2polf(double complex cart) {
-    polarf_t p;
-    p.r = hypotf((float)creal(cart), (float)cimag(cart));
-    p.theta = atan2f((float)cimag(cart), (float)creal(cart));
-    return p;
-}
-
-polarf_t cartf2polf(float complex cart) {
-    polarf_t p;
-    p.r = hypotf(crealf(cart), cimagf(cart));
-    p.theta = atan2f(cimagf(cart), crealf(cart));
-    return p;
-}
-
-polarf_t cartl2polf(long double complex cart) {
-    polarf_t p;
-    p.r = hypotf((float)creall(cart), (float)cimagl(cart));
-    p.theta = atan2f((float)cimagl(cart), (float)creall(cart));
-    return p;
-}
-
-polarl_t cart2poll(double complex cart) {
-    polarl_t p;
-    p.r = hypotl((long double)creal(cart), (long double)cimag(cart));
-    p.theta = atan2l((long double)cimag(cart), (long double)creal(cart));
-    return p;
-}
-
-polarl_t cartf2poll(float complex cart) {
-    polarl_t p;
-    p.r = hypotl((long double)crealf(cart), (long double)cimagf(cart));
-    p.theta = atan2l((long double)cimagf(cart), (long double)crealf(cart));
-    return p;
-}
-
-polarl_t cartl2poll(long double complex cart) {
-    polarl_t p;
-    p.r = hypotl(creall(cart), cimagl(cart));
-    p.theta = atan2l(cimagl(cart), creall(cart));
-    return p;
+cart_t pol2cart(const SL_FP_T r, const SL_FP_T theta) {
+    return (cart_t){.x = r * fpcall(cos, theta), .y = r * fpcall(sin, theta)};
 }
