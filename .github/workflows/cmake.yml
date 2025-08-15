@@ -194,12 +194,25 @@ jobs:
         run: |
           nix \
             --extra-experimental-features 'flakes nix-command' \
-            develop \
-            --command cmake -S . -B build
-          nix \
-            --extra-experimental-features 'flakes nix-command' \
-            develop \
-            --command cmake --build build
+            build .#${{ matrix.package }}
+    strategy:
+      matrix:
+        package:
+          - "serilib-arm-double"
+          - "serilib-arm-float"
+          - "serilib-arm-long-double"
+          - "serilib-armhf-double"
+          - "serilib-armhf-float"
+          - "serilib-armhf-long-double"
+          - "serilib-double"
+          - "serilib-double-shared"
+          - "serilib-float"
+          - "serilib-float-shared"
+          - "serilib-long-double"
+          - "serilib-long-double-shared"
+          - "serilib-riscv32-double"
+          - "serilib-riscv32-float"
+          - "serilib-riscv32-long-double"
 name: "CMake Build"
 on:
   pull_request:
