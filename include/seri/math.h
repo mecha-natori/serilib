@@ -6,6 +6,10 @@
 #include <complex.h>
 #include <stdbool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // 内部使用向け
 /// @cond INTERNAL
 
@@ -139,3 +143,7 @@ SL_FP_T dot(cart_t a, cart_t b);
 ///
 /// @return vecの各成分をscaler倍したベクトル
 cart_t vec_scale(cart_t vec, SL_FP_T scaler);
+
+#ifdef __cplusplus
+}
+#endif

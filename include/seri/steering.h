@@ -8,6 +8,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /// 足回りパラメーター
 typedef struct {
     /// 最高タイヤ回転速度 [rad/s]
@@ -68,3 +72,7 @@ void calc_speed_mechanum(int16_t result[4], pid_data_t *pid_data[4], steering_pa
 /// @param[in]     n              モーターの個数
 /// @param[in]     initial_angle  0番のモーターの角度(右0・反時計回り) [rad]
 void calc_speed_omni(int16_t *result, pid_data_t **pid_data, steering_param_t steering_param, sticks_nor_t sticks, size_t n, SL_FP_T initial_angle);
+
+#ifdef __cplusplus
+}
+#endif

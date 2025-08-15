@@ -3,6 +3,10 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /// PIDパラメーター
 typedef struct {
     /// Pゲイン
@@ -48,3 +52,7 @@ pid_data_t create_pid_data(pid_params_t params);
 ///
 /// @return 値
 SL_FP_T process_pid(pid_data_t *pid_data, SL_FP_T target);
+
+#ifdef __cplusplus
+}
+#endif

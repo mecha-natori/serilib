@@ -5,6 +5,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /// 生のスティックデータ
 typedef struct {
     /// 左スティック左右軸(右が正)
@@ -37,3 +41,7 @@ typedef struct {
 ///
 /// @return 正規化されたスティックデータ
 sticks_nor_t normalize_sticks(sticks_t sticks);
+
+#ifdef __cplusplus
+}
+#endif

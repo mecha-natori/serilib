@@ -75,7 +75,7 @@ IncludeIsMainSourceRegex: "^$"
 IndentCaseBlocks: false
 IndentCaseLabels: true
 # IndentExportBlock: true  # since 20
-IndentExternBlock: "Indent"
+IndentExternBlock: "NoIndent"
 IndentGotoLabels: false
 IndentPPDirectives: "BeforeHash"
 IndentWidth: 4
