@@ -33,50 +33,34 @@ set_property(
         "long double"
 )
 
-# Common Parameters
-
-set(compile_definitions SL_FP_T=${SERI_PRIMARY_FP_TYPE})
-set(compile_features c_std_11)
-set(include_dirs include)
-
 # Targets
 
-add_library(seri STATIC)
-target_compile_features(seri PUBLIC ${compile_features})
-target_include_directories(seri PUBLIC ${include_dirs})
-target_compile_definitions(seri PUBLIC ${compile_definitions})
 if(SERI_USE_SHARED)
-    add_library(seri_shared SHARED)
+    add_library(seri SHARED)
     set_target_properties(
-        seri_shared
-        PROPERTIES
-            OUTPUT_NAME seri
-            SOVERSION ${PROJECT_VERSION_MAJOR}
-            VERSION ${PROJECT_VERSION}
+        seri PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR} VERSION
+                                                           ${PROJECT_VERSION}
     )
-    target_compile_features(seri_shared PUBLIC ${compile_features})
-    target_include_directories(seri_shared PUBLIC ${include_dirs})
-    target_compile_definitions(seri_shared PUBLIC ${compile_definitions})
+else()
+    add_library(seri STATIC)
 endif()
+target_compile_features(seri PUBLIC c_std_11)
+target_include_directories(seri PUBLIC include)
+target_compile_definitions(seri PUBLIC SL_FP_T=${SERI_PRIMARY_FP_TYPE})
 add_subdirectory(src)
 target_sources(seri PRIVATE ${srcs})
-if(SERI_USE_SHARED)
-    target_sources(seri_shared PRIVATE ${srcs})
-endif()
 
 # Installs
 
-install(TARGETS seri ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(
+    TARGETS seri
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 install(
     DIRECTORY ${CMAKE_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN "*.h"
 )
-if(SERI_USE_SHARED)
-    install(
-        TARGETS seri_shared
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
-endif()

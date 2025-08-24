@@ -60,34 +60,34 @@
           packages =
             # OS環境向け
             rec {
-              serilib = serilib-float-with-shared;
-              # 浮動小数:double 静的ライブラリのみ
+              serilib = serilib-float-shared;
+              # 浮動小数:double 静的ライブラリ
               serilib-double = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "double";
                 sharedSupport = false;
               };
-              # 浮動小数:double 静的ライブラリ・共有ライブラリ
-              serilib-double-with-shared = pkgs.callPackage ./nix/package.nix {
+              # 浮動小数:double 共有ライブラリ
+              serilib-double-shared = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "double";
                 sharedSupport = true;
               };
-              # 浮動小数:float 静的ライブラリのみ
+              # 浮動小数:float 静的ライブラリ
               serilib-float = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "float";
                 sharedSupport = false;
               };
-              # 浮動小数:float 静的ライブラリ・共有ライブラリ
-              serilib-float-with-shared = pkgs.callPackage ./nix/package.nix {
+              # 浮動小数:float 共有ライブラリ
+              serilib-float-shared = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "float";
                 sharedSupport = true;
               };
-              # 浮動小数:long double 静的ライブラリのみ
+              # 浮動小数:long double 静的ライブラリ
               serilib-long-double = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "long double";
                 sharedSupport = false;
               };
-              # 浮動小数:long double 静的ライブラリ・共有ライブラリ
-              serilib-long-double-with-shared = pkgs.callPackage ./nix/package.nix {
+              # 浮動小数:long double 共有ライブラリ
+              serilib-long-double-shared = pkgs.callPackage ./nix/package.nix {
                 primary-fp-type = "long double";
                 sharedSupport = true;
               };
@@ -95,19 +95,19 @@
             # Arm(32bit・Soft Float)組み込み向け(クロスコンパイル)
             // rec {
               serilib-arm = serilib-arm-float;
-              # 浮動小数:double 静的ライブラリのみ
+              # 浮動小数:double 静的ライブラリ
               serilib-arm-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 primary-fp-type = "double";
                 sharedSupport = false;
               };
-              # 浮動小数:float 静的ライブラリのみ
+              # 浮動小数:float 静的ライブラリ
               serilib-arm-float = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 primary-fp-type = "float";
                 sharedSupport = false;
               };
-              # 浮動小数:long double 静的ライブラリのみ
+              # 浮動小数:long double 静的ライブラリ
               serilib-arm-long-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 primary-fp-type = "long double";
@@ -117,19 +117,19 @@
             # Arm(32bit・Hard Float)組み込み向け(クロスコンパイル)
             // rec {
               serilib-armhf = serilib-armhf-float;
-              # 浮動小数:double 静的ライブラリのみ
+              # 浮動小数:double 静的ライブラリ
               serilib-armhf-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 primary-fp-type = "double";
                 sharedSupport = false;
               };
-              # 浮動小数:float 静的ライブラリのみ
+              # 浮動小数:float 静的ライブラリ
               serilib-armhf-float = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 primary-fp-type = "float";
                 sharedSupport = false;
               };
-              # 浮動小数:long double 静的ライブラリのみ
+              # 浮動小数:long double 静的ライブラリ
               serilib-armhf-long-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 primary-fp-type = "long double";
@@ -139,19 +139,19 @@
             # Risc-V(32bit)組み込み向け(クロスコンパイル)
             // rec {
               serilib-riscv32 = serilib-riscv32-float;
-              # 浮動小数:double 静的ライブラリのみ
+              # 浮動小数:double 静的ライブラリ
               serilib-riscv32-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.riscv32-embedded) stdenv;
                 primary-fp-type = "double";
                 sharedSupport = false;
               };
-              # 浮動小数:float 静的ライブラリのみ
+              # 浮動小数:float 静的ライブラリ
               serilib-riscv32-float = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.riscv32-embedded) stdenv;
                 primary-fp-type = "float";
                 sharedSupport = false;
               };
-              # 浮動小数:long double 静的ライブラリのみ
+              # 浮動小数:long double 静的ライブラリ
               serilib-riscv32-long-double = pkgs.callPackage ./nix/package.nix {
                 inherit (pkgs.pkgsCross.riscv32-embedded) stdenv;
                 primary-fp-type = "long double";
