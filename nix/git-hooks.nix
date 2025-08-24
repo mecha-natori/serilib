@@ -14,13 +14,6 @@
             clang-format.enable = false; # treefmt
             clang-tidy.enable = true;
             cmake-format.enable = false; # treefmt
-            editorconfig-checker = {
-              enable = true;
-              excludes = [
-                "Doxyfile"
-                "flake.lock"
-              ];
-            };
             markdownlint = {
               enable = true;
               settings.configuration = {
