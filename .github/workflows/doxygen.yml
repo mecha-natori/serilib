@@ -5,7 +5,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     steps:
       - name: "Checkout repository"
-        uses: "actions/checkout@v5"
+        uses: "actions/checkout@v6"
       - name: "Remove unused tools"
         run: |
           sudo rm -rf \
@@ -188,34 +188,39 @@ jobs:
       - name: "Install Nix"
         uses: "cachix/install-nix-action@v31"
         with:
+          extra_nix_config: |
+            accept-flake-config = true
+            experimental-features = flakes nix-command pipe-operators
           github_access_token: "${{ secrets.GITHUB_TOKEN }}"
           nix_path: "nixpkgs=channel:nixos-unstable"
       - name: "Generate"
-        run: |
-          nix \
-            --extra-experimental-features 'flakes nix-command' \
-            develop \
-            --command doxygen
+        run: "nix develop -c doxygen"
       - name: "Upload"
-        uses: "actions/upload-pages-artifact@v3"
+        uses: "actions/upload-pages-artifact@v5"
         with:
           path: "./docs/html"
   deploy:
     environment:
       name: "github-pages"
       url: "${{ steps.deployment.outputs.page_url }}"
-    if: "github.event_name != 'pull_request' || github.event.pull_request.merged == true"
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.merged == true
     needs: "build"
     permissions:
       id-token: "write"
       pages: "write"
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-24.04"
     steps:
       - id: "deployment"
         name: "Deploy"
-        uses: "actions/deploy-pages@v4"
+        uses: "actions/deploy-pages@v5"
 name: "Generate and Upload Doxygen"
 on:
   pull_request:
+    branches:
+      - "main"
   push:
+    branches:
+      - "main"
   workflow_dispatch:

@@ -1,0 +1,79 @@
+jobs:
+  build:
+    permissions:
+      contents: "read"
+    runs-on: "ubuntu-24.04"
+    steps:
+      - id: "build"
+        name: "Build"
+        uses: "./.github/actions/build"
+        with:
+          package: "${{ matrix.package }}"
+      - name: "Archive"
+        run: |
+          mkdir out
+          cd "${{ steps.build.outputs.lib-path }}"
+          zip -r "$GITHUB_WORKSPACE/out/${{ matrix.package }}.zip" ./*
+          cd "${{ steps.build.outputs.dev-path }}"
+          zip -r "$GITHUB_WORKSPACE/out/${{ matrix.package }}.zip" ./*
+      - name: "Upload artifact"
+        uses: "actions/upload-artifact@v7"
+        with:
+          name: "${{ matrix.package }}"
+          path: "./out/${{ matrix.package }}.zip"
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - "serilib"
+          - "serilib-arm-m0plus"
+          - "serilib-arm-m3"
+          - "serilib-arm-m4"
+          - "serilib-armhf-m33"
+          - "serilib-armhf-m4"
+          - "serilib-armhf-m55"
+          - "serilib-armhf-m55-double"
+          - "serilib-armhf-m7"
+          - "serilib-armhf-m7-double"
+          - "serilib-armhf-m85"
+          - "serilib-armhf-m85-double"
+          - "serilib-riscv32-esp32c3"
+          - "serilib-shared"
+  release:
+    permissions:
+      contents: "write"
+    runs-on: "ubuntu-24.04"
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v6"
+        with:
+          fetch-depth: 0
+      - name: "Get artifacts"
+        uses: "actions/download-artifact@v8"
+        with:
+          merge-multiple: true
+          path: "./out"
+      - id: "date"
+        name: "Get current date"
+        run: |
+          echo "date=$(TZ=Asia/Tokyo date +%Y-%m-%d)" >>"$GITHUB_OUTPUT"
+      - name: "Configure Git"
+        run: |
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+      - name: "Create tag"
+        run: |
+          git tag "${{ steps.date.outputs.date }}"
+          git push origin "${{ steps.date.outputs.date }}"
+      - name: "Create release"
+        uses: "svenstaro/upload-release-action@v2"
+        with:
+          file: "./out/*"
+          file_glob: true
+          release_name: "serilib (Build ${{ steps.date.outputs.date }})"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: "${{ steps.date.outputs.date }}"
+name: "CMake Build and Release"
+on:
+  workflow_dispatch:

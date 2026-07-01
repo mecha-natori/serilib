@@ -1,19 +1,36 @@
 {
   cmake,
   lib,
-  mold,
+  myLib,
   ninja,
-  primary-fp-type,
+  preset,
   sharedSupport,
   stdenv,
 }:
+let
+  inherit (myLib) filters;
+  inherit (myLib.build) cleanSourcePipe;
+in
 stdenv.mkDerivation {
-  cmakeFlags = [
-    "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=mold"
-    "-DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=mold"
-    "-DSERI_PRIMARY_FP_TYPE=${primary-fp-type}"
-    "-DSERI_USE_SHARED=${if sharedSupport then "1" else "0"}"
-  ];
+  buildPhase = ''
+    runHook preBuild
+    cmake --build --preset "$cmakePreset" --parallel "$NIX_BUILD_CORES"
+    runHook postBuild
+  '';
+  cmakeBuildDir = "build/${preset}";
+  cmakePreset = preset;
+  configurePhase = ''
+    runHook preConfigure
+    cmake --preset "$cmakePreset" \
+      -DCMAKE_INSTALL_PREFIX="$out" \
+      -DSERI_USE_SHARED=${if sharedSupport then "1" else "0"}
+    runHook postConfigure
+  '';
+  installPhase = ''
+    runHook preInstall
+    cmake --install "$cmakeBuildDir"
+    runHook postInstall
+  '';
   meta = {
     homepage = "https://github.com/mecha-natori/serilib#readme";
     license = lib.licenses.mit;
@@ -23,7 +40,6 @@ stdenv.mkDerivation {
   };
   nativeBuildInputs = [
     cmake
-    mold
     ninja
   ];
   outputs = [
@@ -31,6 +47,9 @@ stdenv.mkDerivation {
     "out"
   ];
   pname = "serilib";
-  src = ../.;
+  src = cleanSourcePipe ../. [
+    filters.isNotNixDirectory
+    filters.isNotNixFiles
+  ];
   version = "0.1.0";
 }

@@ -1,11 +1,11 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.git-hooks.flakeModule
+    (inputs.git-hooks.flakeModule or { })
   ];
   perSystem =
-    { config, ... }:
-    {
+    { config, lib, ... }:
+    lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
       pre-commit = {
         check.enable = true;
         settings = {
@@ -30,7 +30,7 @@
               package = config.treefmt.build.wrapper;
             };
             yamlfmt.enable = false; # treefmt
-            yamllint.enable = true;
+            yamllint.enable = false; # treefmt
           };
           src = ../.;
         };

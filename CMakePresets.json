@@ -1,0 +1,389 @@
+{
+    "buildPresets": [
+        {
+            "configurePreset": "Debug",
+            "name": "Debug"
+        },
+        {
+            "configurePreset": "Debug-arm-m0plus",
+            "name": "Debug-arm-m0plus"
+        },
+        {
+            "configurePreset": "Debug-arm-m3",
+            "name": "Debug-arm-m3"
+        },
+        {
+            "configurePreset": "Debug-arm-m4",
+            "name": "Debug-arm-m4"
+        },
+        {
+            "configurePreset": "Debug-armhf-m4",
+            "name": "Debug-armhf-m4"
+        },
+        {
+            "configurePreset": "Debug-armhf-m7",
+            "name": "Debug-armhf-m7"
+        },
+        {
+            "configurePreset": "Debug-armhf-m7-double",
+            "name": "Debug-armhf-m7-double"
+        },
+        {
+            "configurePreset": "Debug-armhf-m33",
+            "name": "Debug-armhf-m33"
+        },
+        {
+            "configurePreset": "Debug-armhf-m55",
+            "name": "Debug-armhf-m55"
+        },
+        {
+            "configurePreset": "Debug-armhf-m55-double",
+            "name": "Debug-armhf-m55-double"
+        },
+        {
+            "configurePreset": "Debug-armhf-m85",
+            "name": "Debug-armhf-m85"
+        },
+        {
+            "configurePreset": "Debug-armhf-m85-double",
+            "name": "Debug-armhf-m85-double"
+        },
+        {
+            "configurePreset": "Debug-riscv32-esp32c3",
+            "name": "Debug-riscv32-esp32c3"
+        },
+        {
+            "configurePreset": "Release",
+            "name": "Release"
+        },
+        {
+            "configurePreset": "Release-arm-m0plus",
+            "name": "Release-arm-m0plus"
+        },
+        {
+            "configurePreset": "Release-arm-m3",
+            "name": "Release-arm-m3"
+        },
+        {
+            "configurePreset": "Release-arm-m4",
+            "name": "Release-arm-m4"
+        },
+        {
+            "configurePreset": "Release-armhf-m4",
+            "name": "Release-armhf-m4"
+        },
+        {
+            "configurePreset": "Release-armhf-m7",
+            "name": "Release-armhf-m7"
+        },
+        {
+            "configurePreset": "Release-armhf-m7-double",
+            "name": "Release-armhf-m7-double"
+        },
+        {
+            "configurePreset": "Release-armhf-m33",
+            "name": "Release-armhf-m33"
+        },
+        {
+            "configurePreset": "Release-armhf-m55",
+            "name": "Release-armhf-m55"
+        },
+        {
+            "configurePreset": "Release-armhf-m55-double",
+            "name": "Release-armhf-m55-double"
+        },
+        {
+            "configurePreset": "Release-armhf-m85",
+            "name": "Release-armhf-m85"
+        },
+        {
+            "configurePreset": "Release-armhf-m85-double",
+            "name": "Release-armhf-m85-double"
+        },
+        {
+            "configurePreset": "Release-riscv32-esp32c3",
+            "name": "Release-riscv32-esp32c3"
+        }
+    ],
+    "configurePresets": [
+        {
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "generator": "Ninja",
+            "hidden": true,
+            "name": "default"
+        },
+        {
+            "cacheVariables": {
+                "SERI_PRIMARY_FP_TYPE": "float"
+            },
+            "hidden": true,
+            "inherits": "default",
+            "name": "embedded-float"
+        },
+        {
+            "cacheVariables": {
+                "SERI_PRIMARY_FP_TYPE": "double"
+            },
+            "hidden": true,
+            "inherits": "default",
+            "name": "embedded-double"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "arm-m0plus",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi-m0+.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "arm-m3",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi-m3.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "arm-m4",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi-m4.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "armhf-m4",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m4.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "armhf-m7",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m7.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-double",
+            "name": "armhf-m7-double",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m7-double.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "armhf-m33",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m33.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "armhf-m55",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m55.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-double",
+            "name": "armhf-m55-double",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m55-double.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "armhf-m85",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m85.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-double",
+            "name": "armhf-m85-double",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabihf-m85-double.cmake"
+        },
+        {
+            "hidden": true,
+            "inherits": "embedded-float",
+            "name": "riscv32-esp32c3",
+            "toolchainFile": "${sourceDir}/cmake/gcc-riscv32-none-elf-esp32c3.cmake"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SERI_PRIMARY_FP_TYPE": "double"
+            },
+            "inherits": "default",
+            "name": "Debug"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "arm-m0plus",
+            "name": "Debug-arm-m0plus"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "arm-m3",
+            "name": "Debug-arm-m3"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "arm-m4",
+            "name": "Debug-arm-m4"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m4",
+            "name": "Debug-armhf-m4"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m7",
+            "name": "Debug-armhf-m7"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m7-double",
+            "name": "Debug-armhf-m7-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m33",
+            "name": "Debug-armhf-m33"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m55",
+            "name": "Debug-armhf-m55"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m55-double",
+            "name": "Debug-armhf-m55-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m85",
+            "name": "Debug-armhf-m85"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "armhf-m85-double",
+            "name": "Debug-armhf-m85-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "inherits": "riscv32-esp32c3",
+            "name": "Debug-riscv32-esp32c3"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "SERI_PRIMARY_FP_TYPE": "double"
+            },
+            "inherits": "default",
+            "name": "Release"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "arm-m0plus",
+            "name": "Release-arm-m0plus"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "arm-m3",
+            "name": "Release-arm-m3"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "arm-m4",
+            "name": "Release-arm-m4"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m4",
+            "name": "Release-armhf-m4"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m7",
+            "name": "Release-armhf-m7"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m7-double",
+            "name": "Release-armhf-m7-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m33",
+            "name": "Release-armhf-m33"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m55",
+            "name": "Release-armhf-m55"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m55-double",
+            "name": "Release-armhf-m55-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m85",
+            "name": "Release-armhf-m85"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "armhf-m85-double",
+            "name": "Release-armhf-m85-double"
+        },
+        {
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "inherits": "riscv32-esp32c3",
+            "name": "Release-riscv32-esp32c3"
+        }
+    ],
+    "version": 3
+}
