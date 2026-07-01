@@ -66,9 +66,18 @@ jobs:
         run: |
           git tag "${{ steps.date.outputs.date }}"
           git push origin "${{ steps.date.outputs.date }}"
+      - id: "description"
+        name: "Prepare release description"
+        run: |
+          d=$(cat RELEASE.md)
+          d=${d//'%'/'%25'}
+          d=${d//$'\n'/'%0A'}
+          d=${d//$'\r'/'%0D'}
+          echo "description=$d" >>"$GITHUB_OUTPUT"
       - name: "Create release"
         uses: "svenstaro/upload-release-action@v2"
         with:
+          body: "${{ steps.description.outputs.description }}"
           file: "./out/*"
           file_glob: true
           release_name: "serilib (Build ${{ steps.date.outputs.date }})"

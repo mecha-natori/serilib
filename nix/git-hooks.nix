@@ -20,6 +20,8 @@
                 MD013 = false;
                 MD024 = false;
                 MD026 = false;
+                MD033 = false;
+                MD041 = false;
               };
             };
             mdformat.enable = false; # treefmt
