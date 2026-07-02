@@ -53,19 +53,15 @@ jobs:
         with:
           merge-multiple: true
           path: "./out"
-      - id: "date"
-        name: "Get current date"
+      - id: "version"
+        name: "Get version"
         run: |
-          echo "date=$(TZ=Asia/Tokyo date +%Y-%m-%d)" >>"$GITHUB_OUTPUT"
+          echo "version=$(cat VERSION)" >>"$GITHUB_OUTPUT"
       - name: "Configure Git"
         run: |
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-      - name: "Create tag"
-        run: |
-          git tag "${{ steps.date.outputs.date }}"
-          git push origin "${{ steps.date.outputs.date }}"
       - id: "description"
         name: "Prepare release description"
         run: |
@@ -80,9 +76,9 @@ jobs:
           body: "${{ steps.description.outputs.description }}"
           file: "./out/*"
           file_glob: true
-          release_name: "serilib (Build ${{ steps.date.outputs.date }})"
+          release_name: "serilib v${{ steps.version.outputs.version }}"
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: "${{ steps.date.outputs.date }}"
+          tag: "${{ steps.version.outputs.version }}"
 name: "CMake Build and Release"
 on:
   workflow_dispatch:
