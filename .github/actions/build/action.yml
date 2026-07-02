@@ -13,8 +13,6 @@ outputs:
     value: "${{ steps.build.outputs.lib-path }}"
 runs:
   steps:
-    - name: "Checkout repository"
-      uses: "actions/checkout@v6"
     - name: "Remove unused tools"
       shell: "bash"
       run: |
