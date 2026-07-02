@@ -43,6 +43,7 @@ jobs:
           - "serilib-riscv32-esp32c3"
           - "serilib-shared"
   release:
+    needs: "build"
     permissions:
       contents: "write"
     runs-on: "ubuntu-24.04"
