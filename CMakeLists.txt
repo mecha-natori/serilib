@@ -9,7 +9,13 @@ cmake_policy(
 
 # Project Settings
 
-project(serilib VERSION 0.1.0)
+file(
+    READ
+    "${CMAKE_SOURCE_DIR}/VERSION"
+    PROJECT_VERSION_STRING
+)
+string(STRIP "${PROJECT_VERSION_STRING}" PROJECT_VERSION_STRING)
+project(serilib VERSION "${PROJECT_VERSION_STRING}")
 enable_language(C)
 include(GNUInstallDirs)
 
