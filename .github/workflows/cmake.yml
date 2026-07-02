@@ -10,6 +10,7 @@ jobs:
         uses: "./.github/actions/build"
         with:
           package: "${{ matrix.package }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
     strategy:
       fail-fast: false
       matrix:
