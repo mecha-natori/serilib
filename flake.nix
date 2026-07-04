@@ -59,8 +59,8 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./nix/treefmt.nix
-        ./nix/git-hooks.nix
+        ./tools/treefmt.nix
+        ./tools/git-hooks.nix
       ];
       perSystem =
         {
@@ -101,13 +101,13 @@
             rec {
               default = serilib-shared;
               # 静的ライブラリ
-              serilib = pkgs.callPackage ./nix/package.nix {
+              serilib = pkgs.callPackage ./tools/package.nix {
                 myLib = ms0503-lib.lib;
                 preset = "Release";
                 sharedSupport = false;
               };
               # 共有ライブラリ
-              serilib-shared = pkgs.callPackage ./nix/package.nix {
+              serilib-shared = pkgs.callPackage ./tools/package.nix {
                 myLib = ms0503-lib.lib;
                 preset = "Release";
                 sharedSupport = true;
@@ -116,21 +116,21 @@
             # Arm(32bit・Soft Float)組み込み向け(クロスコンパイル)
             // {
               # Cortex-M0+
-              serilib-arm-m0plus = pkgs.callPackage ./nix/package.nix {
+              serilib-arm-m0plus = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-arm-m0plus";
                 sharedSupport = false;
               };
               # Cortex-M3
-              serilib-arm-m3 = pkgs.callPackage ./nix/package.nix {
+              serilib-arm-m3 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-arm-m3";
                 sharedSupport = false;
               };
               # Cortex-M4
-              serilib-arm-m4 = pkgs.callPackage ./nix/package.nix {
+              serilib-arm-m4 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.arm-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-arm-m4";
@@ -140,56 +140,56 @@
             # Arm(32bit・Hard Float)組み込み向け(クロスコンパイル)
             // {
               # Cortex-M4
-              serilib-armhf-m4 = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m4 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m4";
                 sharedSupport = false;
               };
               # Cortex-M7 (単精度FPU)
-              serilib-armhf-m7 = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m7 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m7";
                 sharedSupport = false;
               };
               # Cortex-M7 (単精度・倍精度FPU)
-              serilib-armhf-m7-double = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m7-double = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m7-double";
                 sharedSupport = false;
               };
               # Cortex-M33
-              serilib-armhf-m33 = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m33 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m33";
                 sharedSupport = false;
               };
               # Cortex-M55 (単精度FPU)
-              serilib-armhf-m55 = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m55 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m55";
                 sharedSupport = false;
               };
               # Cortex-M55 (単精度・倍精度FPU)
-              serilib-armhf-m55-double = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m55-double = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m55-double";
                 sharedSupport = false;
               };
               # Cortex-M85 (単精度FPU)
-              serilib-armhf-m85 = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m85 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m85";
                 sharedSupport = false;
               };
               # Cortex-M85 (単精度・倍精度FPU)
-              serilib-armhf-m85-double = pkgs.callPackage ./nix/package.nix {
+              serilib-armhf-m85-double = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.armhf-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-armhf-m85-double";
@@ -199,7 +199,7 @@
             # RISC-V(32bit)組み込み向け(クロスコンパイル)
             // {
               # ESP32-C3
-              serilib-riscv32-esp32c3 = pkgs.callPackage ./nix/package.nix {
+              serilib-riscv32-esp32c3 = pkgs.callPackage ./tools/package.nix {
                 inherit (pkgs.pkgsCross.riscv32-embedded) stdenv;
                 myLib = ms0503-lib.lib;
                 preset = "Release-riscv32-esp32c3";
