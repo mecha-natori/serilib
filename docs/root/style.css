@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+@layer base, component;
+
+@layer base {
+    :root {
+        --color-bg: oklch(95% 0% 0deg);
+        --color-bg-hover: oklch(85% 0% 0deg);
+        --color-border: oklch(10% 0% 0deg);
+        --color-text: oklch(10% 0% 0deg);
+        --font-sans:
+            "Noto Sans JP", "Noto Sans CJK JP", "Helvetica Neue", "Helvetica",
+            "Arial", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+            "Meiryo", ui-sans-serif, system-ui, sans-serif, "Noto Color Emoji",
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+        @media (prefers-color-scheme: dark) {
+            --color-bg: oklch(25% 0% 0deg);
+            --color-bg-hover: oklch(40% 0% 0deg);
+            --color-border: oklch(90% 0% 0deg);
+            --color-text: oklch(90% 0% 0deg);
+        }
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        box-sizing: border-box;
+        font-family: var(--font-sans);
+        font-size: 16px;
+
+        @media (prefers-color-scheme: dark) {
+            color-scheme: dark;
+        }
+    }
+
+    p {
+        @supports (text-wrap: pretty) {
+            text-wrap: pretty;
+        }
+
+        @supports (word-break: auto-phrase) {
+            word-break: auto-phrase;
+        }
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    ol,
+    ul {
+        list-style: none;
+    }
+}
+
+@layer component {
+    body {
+        align-items: center;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        display: block flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 4rem 2rem;
+        min-height: 100svh;
+    }
+
+    .container {
+        display: block grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+        height: max-content;
+    }
+
+    .card {
+        border: 1px solid var(--color-border);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        display: block grid;
+        grid-column: span 2;
+        grid-template-columns: subgrid;
+        height: max-content;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        transition: background-color 0.05s linear;
+
+        &:is(:active, :focus, :hover) {
+            background-color: var(--color-bg-hover);
+        }
+
+        & > * {
+            align-content: center;
+        }
+    }
+}

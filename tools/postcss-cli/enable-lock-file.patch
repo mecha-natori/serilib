@@ -1,0 +1,5 @@
+--- a/.npmrc
++++ b/.npmrc
+@@ -1,1 +1,1 @@
+-package-lock=false
++package-lock=true

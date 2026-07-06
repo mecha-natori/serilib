@@ -3,5 +3,5 @@
 /.pre-commit-config.yaml
 /build/
 /compile_commands.json
-/docs/
+/docs/apidocs/
 /result*

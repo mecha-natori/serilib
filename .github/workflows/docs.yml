@@ -193,12 +193,28 @@ jobs:
             experimental-features = flakes nix-command pipe-operators
           github_access_token: "${{ secrets.GITHUB_TOKEN }}"
           nix_path: "nixpkgs=channel:nixos-unstable"
-      - name: "Generate"
-        run: "nix run nixpkgs#doxygen"
+      - name: "Setup mdbook"
+        run: "cargo install mdbook --no-default-features"
+      - name: "Run autoprefixer"
+        run: |
+          cd ./docs
+          tmp=$(mktemp)
+          nix develop .#gendocs -c autoprefixer ./root/style.css -o "$tmp"
+          mv "$tmp" ./root/style.css
+      - name: "Generate API document"
+        run: |
+          cd ./docs
+          nix develop .#gendocs -c doxygen
+          mv ./apidocs/html ./root/apidocs
+      - name: "Generate manual"
+        run: |
+          cd ./docs/manual
+          mdbook build
+          mv ./book "$GITHUB_WORKSPACE/docs/root/manual"
       - name: "Upload"
         uses: "actions/upload-pages-artifact@v5"
         with:
-          path: "./docs/html"
+          path: "./docs/root"
   deploy:
     environment:
       name: "github-pages"
@@ -215,7 +231,7 @@ jobs:
       - id: "deployment"
         name: "Deploy"
         uses: "actions/deploy-pages@v5"
-name: "Generate and Upload Doxygen"
+name: "Generate and Upload Document"
 on:
   pull_request:
     branches:

@@ -70,32 +70,53 @@
           ...
         }:
         {
-          devShells.shell = pkgs.mkShell {
-            packages = builtins.concatLists [
-              config.pre-commit.settings.enabledPackages
-              (config.treefmt.build.programs |> lib.attrValues)
-              (with pkgs; [
-                (writeScriptBin "clangd" ''
-                  #!/usr/bin/env bash
-                  exec ${clang-tools}/bin/clangd --query-driver="$(command -v "$CC")" "$@"
-                '')
-                cmake
-                doxygen
-                ninja
-              ])
-              (with pkgs.pkgsCross.armhf-embedded.buildPackages; [
-                gcc-arm-embedded
-                gdb
-              ])
-              (with pkgs.pkgsCross.riscv32-embedded.buildPackages; [
-                gcc
-                gdb
-              ])
-            ];
-            shellHook = ''
-              ${config.pre-commit.shellHook}
-            '';
-          };
+          devShells =
+            let
+              autoprefixer = pkgs.callPackage ./tools/autoprefixer.nix {
+                postcss-cli = pkgs.callPackage ./tools/postcss-cli { };
+              };
+            in
+            {
+              gendocs = pkgs.mkShell {
+                packages = builtins.concatLists [
+                  (with pkgs; [
+                    doxygen
+                  ])
+                  [
+                    autoprefixer
+                  ]
+                ];
+              };
+              shell = pkgs.mkShell {
+                packages = builtins.concatLists [
+                  config.pre-commit.settings.enabledPackages
+                  (config.treefmt.build.programs |> lib.attrValues)
+                  (with pkgs; [
+                    (writeScriptBin "clangd" ''
+                      #!/usr/bin/env bash
+                      exec ${clang-tools}/bin/clangd --query-driver="$(command -v "$CC")" "$@"
+                    '')
+                    cmake
+                    doxygen
+                    ninja
+                  ])
+                  (with pkgs.pkgsCross.armhf-embedded.buildPackages; [
+                    gcc-arm-embedded
+                    gdb
+                  ])
+                  (with pkgs.pkgsCross.riscv32-embedded.buildPackages; [
+                    gcc
+                    gdb
+                  ])
+                  [
+                    autoprefixer
+                  ]
+                ];
+                shellHook = ''
+                  ${config.pre-commit.shellHook}
+                '';
+              };
+            };
           packages =
             # OS環境向け
             rec {
