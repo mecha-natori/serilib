@@ -19,6 +19,8 @@ jobs:
           zip -r "$GITHUB_WORKSPACE/out/${{ matrix.package }}.zip" ./*
           cd "${{ steps.build.outputs.dev-path }}"
           zip -r "$GITHUB_WORKSPACE/out/${{ matrix.package }}.zip" ./*
+          cd "${{ steps.build.outputs.doc-path }}"
+          zip -r "$GITHUB_WORKSPACE/out/${{ matrix.package }}.zip" ./*
       - name: "Upload artifact"
         uses: "actions/upload-artifact@v7"
         with:

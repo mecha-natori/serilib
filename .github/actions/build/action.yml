@@ -11,6 +11,9 @@ outputs:
   dev-path:
     description: "Output directory path (header files)"
     value: "${{ steps.build.outputs.dev-path }}"
+  doc-path:
+    description: "Output directory path (document files)"
+    value: "${{ steps.build.outputs.doc-path }}"
   lib-path:
     description: "Output directory path (library files)"
     value: "${{ steps.build.outputs.lib-path }}"
@@ -208,11 +211,26 @@ runs:
       name: "Build"
       shell: "bash"
       run: |
-        nix build --json --no-link \
-          '.#${{ inputs.package }}' \
-          '.#${{ inputs.package }}.dev' \
-        | jq -r '.[].outputs[]' \
-        | read -a outs
-        echo "lib-path=${outs[0]}" >>"$GITHUB_OUTPUT"
-        echo "dev-path=${outs[1]}" >>"$GITHUB_OUTPUT"
+        outs=$(
+          nix build --json --no-link \
+            '.#${{ inputs.package }}' \
+            '.#${{ inputs.package }}.dev' \
+            '.#${{ inputs.package }}.doc' \
+          | jq -r '.[]'
+        )
+        lib=$(
+          echo "$outs" \
+          | jq -r 'select(.outputs | has("out")).outputs.out'
+        )
+        dev=$(
+          echo "$outs" \
+          | jq -r 'select(.outputs | has("dev")).outputs.dev'
+        )
+        doc=$(
+          echo "$outs" \
+          | jq -r 'select(.outputs | has("doc")).outputs.doc'
+        )
+        echo "lib-path=$lib" >>"$GITHUB_OUTPUT"
+        echo "dev-path=$dev" >>"$GITHUB_OUTPUT"
+        echo "doc-path=$doc" >>"$GITHUB_OUTPUT"
   using: "composite"

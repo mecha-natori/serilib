@@ -193,28 +193,18 @@ jobs:
             experimental-features = flakes nix-command pipe-operators
           github_access_token: "${{ secrets.GITHUB_TOKEN }}"
           nix_path: "nixpkgs=channel:nixos-unstable"
-      - name: "Setup mdbook"
-        run: "cargo install mdbook --no-default-features"
-      - name: "Run autoprefixer"
+      - id: "build"
+        name: "Build"
         run: |
-          cd ./docs
-          tmp=$(mktemp)
-          nix develop .#gendocs -c autoprefixer ./root/style.css -o "$tmp"
-          mv "$tmp" ./root/style.css
-      - name: "Generate API document"
-        run: |
-          cd ./docs
-          nix develop .#gendocs -c doxygen
-          mv ./apidocs/html ./root/apidocs
-      - name: "Generate manual"
-        run: |
-          cd ./docs/manual
-          mdbook build
-          mv ./book "$GITHUB_WORKSPACE/docs/root/manual"
+          out=$(
+            nix build --json --no-link .#serilib.doc \
+            | jq -r '.[0].outputs.doc'
+          )
+          echo "out_path=$out/share/doc" >>"$GITHUB_OUTPUT"
       - name: "Upload"
         uses: "actions/upload-pages-artifact@v5"
         with:
-          path: "./docs/root"
+          path: "${{ steps.build.outputs.out_path }}"
   deploy:
     environment:
       name: "github-pages"
