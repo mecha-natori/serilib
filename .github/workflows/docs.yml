@@ -90,6 +90,7 @@ jobs:
             || true
           sudo docker image prune --all --force
           sudo npm uninstall bazel bazelisk || true
+          rustup self uninstall -y
           sudo apt-get purge -y -- \
             *-dev \
             ansible \
